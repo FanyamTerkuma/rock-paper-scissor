@@ -62,7 +62,7 @@ function playGame() {
         console.log(`You lost ${computerScore} out of 5 valid rounds`);
     }
     console.log('----------------------------------------------------');
-    return `${roundCount + tieCount} rounds played successfully and you tied ${tieCount} time(s)`;
+    return `You have played ${roundCount + tieCount} rounds successfully and you tied ${tieCount} time(s)`;
 }
 
 console.log(playGame());
