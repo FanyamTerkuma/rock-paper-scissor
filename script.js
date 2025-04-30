@@ -28,6 +28,7 @@ function playGame() {
     let humanScore = 0;
     let computerScore = 0;
     let roundCount = 0;
+    let tieCount = 0;
 
     // function for a single round
     function playRound(humanChoice, computerChoice) {
@@ -38,19 +39,13 @@ function playGame() {
         ) {
             console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
             humanScore++;
-        }
-        if (
-            (humanChoice === 'paper' && computerChoice == 'scissor') ||
-            (humanChoice === 'rock' && computerChoice == 'paper') ||
-            (humanChoice === 'scissor' && computerChoice === 'rock') ||
-            (humanChoice === 'scissor' && computerChoice === 'rock')
-        ) {
-            console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
-            computerScore++;
-        }
-        if (humanChoice === computerChoice) {
+        } else if (humanChoice === computerChoice) {
             console.log("It's a tie");
             roundCount--;
+            tieCount++;
+        } else {
+            console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
+            computerScore++;
         }
     }
     while (roundCount < 5) {
@@ -62,12 +57,12 @@ function playGame() {
     console.log('----------------------------------------------------');
 
     if (humanScore > computerScore) {
-        console.log(`You won ${humanScore} out of 5 rounds played`);
+        console.log(`You won ${humanScore}  out of 5 valid rounds`);
     } else {
-        console.log(`You lost ${computerScore} out of 5 rounds played`);
+        console.log(`You lost ${computerScore} out of 5 valid rounds`);
     }
     console.log('----------------------------------------------------');
-    return '5 rounds played successfully';
+    return `${roundCount + tieCount} rounds played successfully and you tied ${tieCount} time(s)`;
 }
 
 console.log(playGame());
