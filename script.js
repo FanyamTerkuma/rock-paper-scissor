@@ -24,47 +24,40 @@ function getHumanChoice() {
 
 // logic to play the entire game
 function playGame() {
-    //variables to keep track of players scores
+    //variables to keep track of players scores and round count
     let humanScore = 0;
     let computerScore = 0;
-    let count = 0;
+    let roundCount = 0;
 
     // function for a single round
     function playRound(humanChoice, computerChoice) {
-        if (humanChoice === 'rock' && computerChoice === 'scissor') {
-            console.log(`You Win! Rock beats Scissor`);
+        if (
+            (humanChoice === 'paper' && computerChoice === 'rock') ||
+            (humanChoice === 'rock' && computerChoice === 'scissor') ||
+            (humanChoice === 'scissor' && computerChoice === 'paper')
+        ) {
+            console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
             humanScore++;
         }
-        if (humanChoice === 'scissor' && computerChoice === 'paper') {
-            console.log(`You Win! Scissor beats paper`);
-            humanScore++;
-        }
-        if (humanChoice === 'paper' && computerChoice === 'rock') {
-            console.log(`You Win! Paper beats Rock`);
-            humanScore++;
-        }
-        if (humanChoice === 'scissor' && computerChoice === 'rock') {
-            console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
-            computerScore++;
-        }
-
-        if (humanChoice === 'paper' && computerChoice == 'scissor') {
-            console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
-            computerScore++;
-        }
-        if (humanChoice === 'rock' && computerChoice == 'paper') {
+        if (
+            (humanChoice === 'paper' && computerChoice == 'scissor') ||
+            (humanChoice === 'rock' && computerChoice == 'paper') ||
+            (humanChoice === 'scissor' && computerChoice === 'rock') ||
+            (humanChoice === 'scissor' && computerChoice === 'rock')
+        ) {
             console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
             computerScore++;
         }
         if (humanChoice === computerChoice) {
-            console.log(`It's a tie`);
+            console.log("It's a tie");
+            roundCount--;
         }
     }
-    while (count < 5) {
+    while (roundCount < 5) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
         playRound(humanSelection, computerSelection);
-        count++;
+        roundCount++;
     }
     console.log('----------------------------------------------------');
 
