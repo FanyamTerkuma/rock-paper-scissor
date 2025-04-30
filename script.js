@@ -5,11 +5,11 @@
 // if the random number is 2 return 'scissor'
 
 function getComputerChoice() {
-    choice = Math.floor(Math.random() * 3); //Expected output is 0,1 and 2
-    if (choice === 0) {
+    let computerChoice = Math.floor(Math.random() * 3); //Expected output is 0,1 and 2
+    if (computerChoice === 0) {
         return 'Rock';
     }
-    if (choice === 1) {
+    if (computerChoice === 1) {
         return 'Paper';
     } else {
         return 'Scissor';
