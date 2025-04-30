@@ -15,3 +15,9 @@ function getComputerChoice() {
         return 'Scissor';
     }
 }
+
+// function to take the user input
+function getHumanChoice() {
+    let userChoice = prompt('Enter your choice to play. Valid choices are "Rock", "Paper" and "Scissor":');
+    return userChoice;
+}
