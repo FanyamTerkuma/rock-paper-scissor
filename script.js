@@ -1,10 +1,4 @@
-// create a function to get Computer's choice
-// make the choice random, so it can return either 'rock', 'paper' or 'scissor'
-//if the random number is 0 return 'rock'
-// if the random number is 1 return 'paper'
-// if the random number is 2 return 'scissor'
-
-function getComputerChoice() {
+function setComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3); //Expected output is 0,1 and 2
     if (computerChoice === 0) {
         return 'rock';
@@ -12,57 +6,43 @@ function getComputerChoice() {
     if (computerChoice === 1) {
         return 'paper';
     } else {
-        return 'scissor';
+        return 'scissors';
     }
 }
 
-// function to take the user input
-function getHumanChoice() {
-    let userChoice = prompt('Enter your choice to play. Valid choices are "Rock", "Paper" and "Scissor":');
-    return userChoice.toLowerCase();
-}
+let humanScore = 0;
+let computerScore = 0;
+let tieCount = 0;
 
-// logic to play the entire game
-function playGame() {
-    //variables to keep track of players scores and round count
-    let humanScore = 0;
-    let computerScore = 0;
-    let roundCount = 0;
-    let tieCount = 0;
+const resultsContainer = document.querySelector('#results');
+const scissorBtn = document.querySelector('#scissors');
+const rockBtn = document.querySelector('#rock');
+const paperBtn = document.querySelector('#paper');
 
-    // function for a single round
-    function playRound(humanChoice, computerChoice) {
-        if (
-            (humanChoice === 'paper' && computerChoice === 'rock') ||
-            (humanChoice === 'rock' && computerChoice === 'scissor') ||
-            (humanChoice === 'scissor' && computerChoice === 'paper')
-        ) {
-            console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
-            humanScore++;
-        } else if (humanChoice === computerChoice) {
-            console.log("It's a tie");
-            roundCount--;
-            tieCount++;
-        } else {
-            console.log(`You Lose! ${computerChoice} beats ${humanChoice}`);
-            computerScore++;
-        }
+function playRound(humanChoice) {
+    let computerChoice = setComputerChoice();
+
+    if (humanScore === 5 || computerScore === 5) {
+        resultsContainer.textContent = `Game Over! ${humanScore > computerScore ? 'You Win!' : 'You Lose!'} \n Your score: ${humanScore} and Computer's score:${computerScore}`;
+        return;
     }
-    while (roundCount < 5) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        roundCount++;
-    }
-    console.log('----------------------------------------------------');
-
-    if (humanScore > computerScore) {
-        console.log(`You won ${humanScore}  out of 5 valid rounds`);
+    if (
+        (humanChoice === 'paper' && computerChoice === 'rock') ||
+        (humanChoice === 'rock' && computerChoice === 'scissors') ||
+        (humanChoice === 'scissors' && computerChoice === 'paper')
+    ) {
+        humanScore++;
+        resultsContainer.textContent = `You Win! ${humanChoice.toUpperCase()} beats ${computerChoice.toUpperCase()} \n Your score: ${humanScore} Computer's score:${computerScore}`;
+    } else if (humanChoice === computerChoice) {
+        tieCount++;
+        resultsContainer.textContent = `It's a tie \n Your score: ${humanScore} Computer's score:${computerScore}`;
     } else {
-        console.log(`You lost ${computerScore} out of 5 valid rounds`);
+        computerScore++;
+        resultsContainer.textContent = `You Lose! ${computerChoice.toUpperCase()} beats ${humanChoice.toUpperCase()} \n Your score: ${humanScore} Computer's score:${computerScore}`;
+        resultsContainer.textContent = `You Lose! ${computerChoice.toUpperCase()} beats ${humanChoice.toUpperCase()} \n Your score: ${humanScore} Computer's score:${computerScore}`;
     }
-    console.log('----------------------------------------------------');
-    return `You have played ${roundCount + tieCount} rounds successfully and you tied ${tieCount} time(s)`;
 }
 
-console.log(playGame());
+scissorBtn.addEventListener('click', () => playRound('scissors'));
+rockBtn.addEventListener('click', () => playRound('rock'));
+paperBtn.addEventListener('click', () => playRound('paper'));
